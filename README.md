@@ -4,6 +4,8 @@ __WARNING: This is a prototype / outdated project ! Use at your own risk !__
 __EV3DEV sysfs layout has changed since this was written (2015)__
 __For ev3dev news and neater ev3dev go language bindings visit ev3dev.org__
 
+Pictures of robots and grabbers this code was used to run can be found [at my mocpages page](http://http://www.moc-pages.com/home.php/114748): 
+
 Contents:
 * clip - wrapper for easily connecting to ev3dev sysfs device and sensor "ports"
 * docs
