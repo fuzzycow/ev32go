@@ -1,8 +1,0 @@
-.stamp*
-/doc/
-/css/
-/js/
-npm-debug.log
-node_modules/*
-.DS_Store
-sass/.sass-cache
