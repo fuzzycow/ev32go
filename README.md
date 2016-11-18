@@ -4,8 +4,6 @@ __WARNING: This is a prototype / outdated project ! Use at your own risk !__
 __EV3DEV sysfs layout has changed since this was written (2015)__
 __For ev3dev news and neater ev3dev go language bindings visit ev3dev.org__
 
-Pictures of robots and grabbers this code was used to run can be found [at my mocpages page](http://http://www.moc-pages.com/home.php/114748): 
-
 Contents:
 * clip - wrapper for easily connecting to ev3dev sysfs device and sensor "ports"
 * docs
@@ -30,6 +28,9 @@ Contents:
 To build on Linux x86 for LEGO EV3 ARM5 no-FP target:
 `GOARM=5 GOARCH=arm go build github.com/fuzzycow/ev32go/....`
 
+__Pictures of robots and grabbers used with this project can be found [at my mocpages page](http://www.moc-pages.com/home.php/114748)__
+
 The code in this repository is (C) Fuzzycow.Org and is released under GPLv2 LICENSE
 GPLv2 LICENSE was chosen to match the license of the ev3dev project, and ev3dev-lang spec.json file
+
 
