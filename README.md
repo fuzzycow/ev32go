@@ -25,6 +25,8 @@ Contents:
 * examples - examples and demos
 * bench - benchmarks to compare performance of different math library implementations on LEGO EV3 Platform (ARM5 non-FP CPU)
 
+To build on Linux x86 for LEGO EV3 ARM5 no-FP target:
+`GOARM=5 GOARCH=arm go build github.com/fuzzycow/ev32go/....`
 
 The code in this repository is (C) Fuzzycow.Org and is released under GPLv2 LICENSE
 GPLv2 LICENSE was chosen to match the license of the ev3dev project, and ev3dev-lang spec.json file
