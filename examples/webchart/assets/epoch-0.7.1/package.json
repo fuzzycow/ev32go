@@ -1,0 +1,43 @@
+{
+  "name": "epoch-charting",
+  "version": "0.7.1",
+  "description": "A general purpose real-time charting library for building beautiful, smooth, and high performance visualizations.",
+  "keywords": [
+    "chart",
+    "charting",
+    "visualization",
+    "svg",
+    "animation",
+    "canvas",
+    "d3"
+  ],
+  "homepage": "http://fastly.github.io/epoch/",
+  "author": {
+    "name": "rsandor",
+    "url": "https://github.com/rsandor"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/fastly/epoch/blob/master/LICENSE"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fastly/epoch.git"
+  },
+  "main": "dist/js/epoch.js",
+  "dependencies": {
+    "d3": "^3.4.13"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "node-minify": "^1.2.1",
+    "codo": "^2.0.11",
+    "node-sass": "^3.3.3",
+    "mocha": "^2.3.3",
+    "xmlhttprequest": "^1.7.0",
+    "jsdom": "^0.11.1",
+    "chai": "^3.3.0"
+  }
+}

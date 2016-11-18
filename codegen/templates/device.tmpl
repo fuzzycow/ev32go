@@ -1,0 +1,82 @@
+<< $className := .FriendlyName | stripFromName packageName| underscoreSpaces | ccUpper  >>
+<< $objName := .FriendlyName | stripFromName packageName | underscoreSpaces | ccLower >>
+
+// <<$className>> (<<.FriendlyName>>): << template "desc.tmpl" . >>
+// ev3dev documentation: <<.DocsLink>>
+// sysfs naming convention: <<.SystemClassName>>/<<.SystemDeviceNameConvention>>
+package <<packageName>>
+
+
+<<if .Inheritance >>
+	<< $parentClassName := index .Inheritance 0 | ccUpper | print "device." >>
+	import "github.com/fuzzycow/ev32go/ev3api/device"
+	type <<$className>> struct { *<<$parentClassName>> }
+<<else>>
+	import "github.com/fuzzycow/ev32go/ev3api"
+	type <<$className>> struct { ev3api.Device }
+<<end>>
+
+
+func (_ <<$className>>) SystemClassName() string { return "<<.SystemClassName>>" }
+func (_ <<$className>>) SystemDeviceNameConvention() string { return "<<.SystemDeviceNameConvention>>" }
+
+<< $propertyNamesVar := print $className "PropertyNames" >>
+var <<$propertyNamesVar>>=[]string{
+<< range .SystemProperties >>
+	"<<.SystemName>>",<<end>>
+}
+
+func (<<$objName>> <<$className>>) PropertyNames() []string {
+	<<if .Inheritance >>
+		<< $parentClassName := index .Inheritance 0 | ccUpper | print "device." >>
+		<< $parentPropertyNamesVar := print $parentClassName "PropertyNames" >>
+		return append(<<$parentPropertyNamesVar>>,<<$propertyNamesVar>>...)
+	<<else>>
+		return <<$propertyNamesVar>>
+	<<end>>
+}
+
+<< range .SystemProperties >>
+	<< $methodName := .Name |underscoreSpaces | ccUpper >>
+	<< $typ := .GoType >>
+
+	<< if .ReadAccess >>
+		<< template "desc.tmpl" . >>
+    	// sysfs filename: <<.SystemName>>
+		func (<<$objName>> *<<$className>>) <<$methodName>>() <<$typ>> {
+			return <<$objName>>.GetAttr<<.GoMethodTypeName>>("<<.SystemName>>")
+		}
+	<<end>>
+	<< if .WriteAccess >>
+		<< template "desc.tmpl" . >>
+        // sysfs filename: <<.SystemName>>
+		func (<<$objName>> *<<$className>>) Set<<$methodName>>(value <<.GoType>>) {
+			<<$objName>>.SetAttr<<.GoMethodTypeName>>("<<.SystemName>>",value)
+		}
+	<<end>>
+
+	<< $propSystemNameFuncName := print "Property_" $methodName >>
+	// "static method": returns a "constant", does not alter device state
+    // func (_ <<$className>>) <<$propSystemNameFuncName>>() string { return "<<.SystemName>>" }
+<<end>>
+
+
+<< range .PropertyValues >>
+	<< $propName := .PropertyName >>
+	<< $propValuePrefix := .PropertyName | formatPropValue >>
+	<< range .Values >>
+		<< $propValueName :=  .Name | formatPropValue >>
+		<< $propValueFuncName := print $propValuePrefix "_" $propValueName >>
+
+		<< template "desc.tmpl" . >>
+		// "static method": returns a "constant", does not alter device state
+    	func (_ <<$className>>) <<$propValueFuncName>>() string { return "<<.Name>>" }
+
+		<< if eq $propName  "Command" >>
+			<< template "desc.tmpl" . >>
+			func (<<$objName>> *<<$className>>) <<$propValueName>>() {
+				<<$objName>>.SetCommand( <<$objName>>.<<$propValueFuncName>>() )
+			}
+		<<end>>
+	<<end>>
+<<end>>

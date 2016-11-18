@@ -1,0 +1,77 @@
+@startuml
+
+set namespaceSeparator .
+
+class drivers.sysfs.SysfsDriver {
+    dir Dir
+    SetPortName(string)
+    SetPathFilter(...string)
+    Open() error
+ 	GetAttrString(string) string
+	GetAttrInt(string) int
+	SetAttrString(string,string)
+	SetAttrInt(string, int)
+	Err()
+	Close()
+}
+
+interface drivers.AvpDevice {
+    Open() error
+	GetAttrString(string) string
+	GetAttrInt(string) int
+	SetAttrString(string,string)
+	SetAttrInt(string, int)
+	Close()
+	Err()
+}
+
+interface drivers.PortFinder {
+    SetPortName(string)
+    SetPathFilter(...string)
+}
+
+interface ev3api.Device {
+    drivers.AvpDevice
+}
+
+
+drivers.sysfs.SysfsDriver ..> drivers.AvpDevice
+drivers.sysfs.SysfsDriver ..> drivers.PortFinder
+drivers.AvpDevice o.. ev3api.Device
+
+drivers.sysfs.SysfsDriver *--  ev3api.device.Sensor
+drivers.sysfs.SysfsDriver *--  ev3api.device.Motor
+
+ev3api.Device o..  ev3api.device.Sensor
+ev3api.Device o..  ev3api.device.Motor
+
+ev3api.device.Sensor *-- ev3api.device.sensor.Color
+
+
+class drivers.sysfs.CachedDir <<(S,cyan)>> {
+    reading Cache
+    writing Cache
+    ReadFile()
+    WriteFile()
+    Close()
+}
+
+class drivers.sysfs.DirectDir <<(S,cyan)>> {
+    ReadFile()
+    WriteFile()
+    Close()
+}
+
+interface drivers.sysfs.Dir {
+    ~ReadFile()
+    ~WriteFile()
+    ~Close()
+}
+
+drivers.sysfs.DirectDir ..> drivers.sysfs.Dir
+drivers.sysfs.CachedDir ..> drivers.sysfs.Dir
+drivers.sysfs.CachedDir*-- drivers.sysfs.Cache
+
+drivers.sysfs.Dir o.. drivers.sysfs.SysfsDriver
+
+@enduml
