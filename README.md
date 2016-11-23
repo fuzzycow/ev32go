@@ -1,7 +1,7 @@
 # ev32go
 
-__WARNING:__
-This is a prototype / outdated project ! Use at your own risk.
+__WARNING:__ This is a prototype / outdated project ! Use at your own risk.
+
 For ev3dev news and neater ev3dev go language bindings visit ev3dev.org.
 EV3DEV sysfs layout / spec has changed since this was written(2015). 
 Use the provided code generator (spec2go) to regenerate ev3api go code for the updated ev3dev spec file.
@@ -20,9 +20,8 @@ Contents:
 * clip - wrapper for easily opening ev3dev devices/ports. Use this to create new device/port objects.
 * docs
     * spec - ev3dev API spec, used to generate ev3api (currently contains a copy of ev3dev spec.json file, GPL LICENSE. See [ev3dev-lang repo](https://github.com/ev3dev/ev3dev-lang) ) 
+* cmd/spec2go - utility used to generate ev3api from ev3dev spec.json, called via go:generate, uses codegen library
 * codegen - library and templates for generating device and sensor classes from ev3dev spec.json
-* cmd
-    * spec2go - utility called by go:generate, uses codegen library
 * ev3api - Generated Go API for LEGO EV3 / ev3dev
 * drivers
     * sysfs - ev3dev sysfs driver. Includes two implementations: 
@@ -35,7 +34,7 @@ Contents:
 * robotics
     * telemetry - telemetry logger (influxdb implementation provided)
     * chassis, nav, pose -  partial port of lejos robotics framework navigation code. Supports both diffirential and holonomic (omni) robotic chassis.
-    * pid -  experiment in user-space PID control, partially based on ev3dev kernel-level pid implementation
+    * pid -  experiments in user-space PID control, partially based on ev3dev kernel-level pid implementation
 * examples - examples and demos
     * holocontrol / diffcontrol - state machine -based robot control example. Robot follows IR remote while IR remote is in beacon/seek mode, but switches to IR direct control mode, if directional control command is recieved.      
 * bench - benchmarks to compare performance of different math library implementations on LEGO EV3 Platform (ARM5 non-FP CPU)
@@ -46,10 +45,11 @@ To build on Linux x86 for LEGO EV3 ARM5 no-FP target:
 
 
 __Pictures of robots and grabbers used with this project can be found [at my mocpages page](http://www.moc-pages.com/home.php/114748)__
-
+and [home page](http://www.fuzzycow.org./fuzzybots/holonomic/overview/gallery1)
 
 
 The code in this repository is (C) Fuzzycow.Org and is released under GPLv2 LICENSE
+
 GPLv2 LICENSE was chosen to match the license of the ev3dev project, and ev3dev-lang spec.json file
 
 
